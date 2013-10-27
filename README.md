@@ -6,7 +6,10 @@ A repository for content related to the Py-YYC Python in Medicine event.  Novemb
 Topics
 =======
 
-1. Algorithms
+1. Algorithms 
+	threshold.py
+	randomize.py
+
 2. Security
 3. Map-Reduce
 4. Sentiment analysis

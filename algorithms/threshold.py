@@ -1,10 +1,15 @@
-levels = range(10)
+levels = range(250)
 counter = 0
 
 for i in levels:
 	for j in levels:
 		if j > i:
-			print i, j, counter
-		counter = counter + 1
+			print i+1, j+1, counter
+			counter += 1
+
+
+		
+
+
 	
 	
