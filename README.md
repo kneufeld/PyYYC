@@ -8,8 +8,8 @@ Topics
 
 1. Algorithms 
 	
-	-threshold.py
-	-randomize.py
+  -threshold.py
+  -randomize.py
 
 2. Security
 3. Map-Reduce
