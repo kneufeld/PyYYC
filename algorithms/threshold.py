@@ -1,4 +1,6 @@
-levels = range(250)
+
+
+levels = range(10)
 counter = 0
 
 for i in levels:
