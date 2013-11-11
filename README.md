@@ -7,11 +7,11 @@ Topics
 =======
 
 1. Algorithms 
-	threshold.py  (Scipy, SQLite)
-	randomize.py  (Scipy, PDFGen)
-2. MPTT for Hierarchical data. (Django-MPTT, Django)
-3. Map-Reduce with Sentiment Analysis (Pure Python + OAUTH2)
-
-
+  * threshold.py
+  * randomize.py
+2. Security
+3. Map-Reduce
+4. Sentiment analysis
+5. Half formed ideas
 
 

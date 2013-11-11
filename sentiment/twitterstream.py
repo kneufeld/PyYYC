@@ -1,12 +1,18 @@
 import oauth2 as oauth
 import urllib2 as urllib
+import ConfigParser
 
-#You should generate your own access and consumer keys and secrets at dev.twitter.com
+#We have used config parser to allow users to keep their twitter oauth2 keys and secrets out of shared code.
+#Keys are intentionally ignored from this git repository.
+#A config.ini file in this directory with the following sections and variables will help:
 
-access_token_key = "180862017-YYwX0BRLWNJcqcqSxQIMRKiyYY7KHztfpnGCJmjx"
-access_token_secret = "85ZHJdbBcCYSyFrimrw1wkwvPT5nGsJ04KP18pOUhFnNS"
-consumer_key = "UhvnZ6MIzRaQqKpmRHw"
-consumer_secret = "s4w18CIi3whIXnRjebqfnJIX63QjU0fE3BrKNknk"
+#[oauth-keys]
+
+#access_token_key = "KEY-HERE"
+#access_token_secret = "KEY-HERE"
+#consumer_key = "KEY-HERE"
+#consumer_secret = "KEY-HERE"
+
 
 _debug = 0
 
