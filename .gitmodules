@@ -1,3 +1,0 @@
-[submodule "presentation"]
-	path = presentation
-	url = git@github.com:cru/reveal.js.git
