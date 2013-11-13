@@ -1,6 +1,7 @@
 import oauth2 as oauth
 import urllib2 as urllib
 import ConfigParser
+import sys
 
 #We have used config parser to allow users to keep their twitter oauth2 keys and secrets out of shared code.
 #Keys are intentionally ignored from this git repository.
@@ -13,6 +14,12 @@ import ConfigParser
 #consumer_key = "KEY-HERE"
 #consumer_secret = "KEY-HERE"
 
+config = ConfigParser.ConfigParser()
+config.read("twitter.conf")
+access_token_key = config.get('oauth-keys', 'access_token_key')
+access_token_secret = config.get('oauth-keys', 'access_token_secret')
+consumer_key = config.get('oauth-keys', 'consumer_key')
+consumer_secret = config.get('oauth-keys', 'consumer_secret')
 
 _debug = 0
 
@@ -56,12 +63,14 @@ def twitterreq(url, method, parameters):
 
   return response
 
-def fetchsamples():
-  url = "https://stream.twitter.com/1/statuses/sample.json"
-  parameters = []
-  response = twitterreq(url, "GET", parameters)
+def fetchsamples(parameters = []):
+  url = "https://stream.twitter.com/1.1/statuses/filter.json"
+  response = twitterreq(url, "POST", parameters)
   for line in response:
     print line.strip()
 
 if __name__ == '__main__':
-  fetchsamples()
+  parameters = {"track": ''}
+  sys.argv.pop(0)
+  parameters["track"] = " ".join(sys.argv)
+  fetchsamples(parameters)
