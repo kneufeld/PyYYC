@@ -86,10 +86,67 @@ $$
 					</section>
 				</section>
 				<section>
-					<h2>Python and Map-Reduce</h2>
-					<p>
-						
-					</p>
+					<section>
+						<h2>Python and Map-Reduce</h2>
+						<p>
+							To try out map-reduce, we can implement the algorithm in 20 lines of code...	
+						</p>
+					</section>
+					<section>
+						<h3>MapReduce.py</h3>
+						<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+import json
+
+class MapReduce:
+    def __init__(self):
+        self.intermediate = {}
+        self.result = []
+
+    def emit_intermediate(self, key, value):
+        self.intermediate.setdefault(key, [])
+        self.intermediate[key].append(value)
+
+    def emit(self, value):
+        self.result.append(value) 
+
+	
+						</code></pre>
+					</section>
+					<section>
+						<h3>MapReduce.py</h3>
+						<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+#continued
+    def execute(self, data, mapper, reducer):
+        index = 0
+        for line in data:
+            index += 1
+            record = json.loads(line)
+            mapper(record)
+        for key in self.intermediate:
+            reducer(key, self.intermediate[key])
+
+        jenc = json.JSONEncoder()
+        for item in self.result:
+            print jenc.encode(item)
+		            	</code></pre>
+		            </section>
+		            <section>
+		            	<h3>wordcount.py</h3>
+			            <pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">	
+def mapper(record):
+    key = record[0] # key: document identifier
+    value = record[1] # value: document contents
+    words = value.split()
+    for w in words:
+      mr.emit_intermediate(w, 1)
+
+def reducer(key, list_of_values):
+    total = 0
+    for v in list_of_values:
+      total += v
+    mr.emit((key, total))
+	    				</pre></code>
+	    			</section>
 				</section>
 				<section>
 					<section>
