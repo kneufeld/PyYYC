@@ -4,9 +4,10 @@ import json
 import sys
 import subprocess
 
-AFINN_file = subprocess.Popen(['hadoop', 'fs', '-cat', '/user/hdfs/tweets/AFINN-111.txt'], stdout=subprocess.PIPE)
+#AFINN_file = subprocess.Popen(['hadoop', 'fs', '-cat', '/user/hdfs/tweets/AFINN-111.txt'], stdout=subprocess.PIPE)
+AFINN_file = open('../sentiment/AFINN-111.txt')
 sentDict = {}
-for line in AFINN_file.stdout:
+for line in AFINN_file:
     word, sentiment = line.split("\t")
     sentDict[word] = int(sentiment)
 
