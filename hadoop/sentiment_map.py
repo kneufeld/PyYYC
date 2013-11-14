@@ -31,20 +31,14 @@ for line in sys.stdin:
     	    key = 'iphone'
 
     	#if it is classified
-    	if not key:
-            continue
+    	if not key: continue
 
-        try:
-            score = 0
-            for w in words:
-                if w in sentDict:
-                    #if a tweet word has a known sentiment
-                    score += sentDict[w]
-            #send score along to reducers
-            print "%s\t%s" % (key, score)
-        #this is just in case something weird happend with the dictionary -
-        #- with so many tweets we don't really care if a couple get missed
-        except KeyError:
-            pass
+        score = 0
+        for w in words:
+            if w in sentDict:
+                #if a tweet word has a known sentiment
+                score += sentDict[w]
+        #send score along to reducers
+        print "%s\t%s" % (key, score)
     except:
         pass
