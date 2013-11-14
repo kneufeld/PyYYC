@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import json 
+import json
 import sys
 import subprocess
 
@@ -11,36 +11,40 @@ for line in AFINN_file:
     word, sentiment = line.split("\t")
     sentDict[word] = int(sentiment)
 
+#potential android keywords
+android_kws = ['android', '#android', 'android.', 'droid', 'nexus']
+#potential iphone keywords
+iphone_kws = ['iphone', '#iphone', 'ios', 'iphone5', 'iphone4', 'iphone3']
+
 for line in sys.stdin:
     try:
         tweet = json.loads(line)
-    	words = [w.lower() for w in tweet['text'].split()]
-    	key = False
-    	#potential android keywords
-    	android_kws = ['android', '#android', 'android.', 'droid', 'nexus']
-    	#potential iphone keywords
-    	iphone_kws = ['iphone', '#iphone', 'ios', 'iphone5', 'iphone4', 'iphone3']
+        words = map( lambda w: w.lower(), tweet['text'].split() )
+    	key = None
     	#determine if the tweet contains keywords
-    	has_android = [w for w in words if w in android_kws]
-    	has_iphone = [w for w in words if w in iphone_kws]
+        has_android = filter( lambda w: w in android_kws, words )
+        has_iphone = filter( lambda w: w in iphone_kws, words )
     	#only take tweets that have android or iphone in them, not both
     	if has_android and not has_iphone:
     	    key = 'android'
     	elif has_iphone and not has_android:
     	    key = 'iphone'
+
     	#if it is classified
-    	if key:
-    	    try:
-    	        score = 0
-    	        for w in words:
-    	            if w in sentDict:
-    	                #if a tweet word has a known sentiment
-    	                score += sentDict[w]
-    	        #send score along to reducers
-    	        print "%s\t%s" % (key, score)
-    	    #this is just in case something weird happend with the dictionary - 
-    	    #- with so many tweets we don't really care if a couple get missed
-    	    except KeyError:
-    	        pass
+    	if not key:
+            continue
+
+        try:
+            score = 0
+            for w in words:
+                if w in sentDict:
+                    #if a tweet word has a known sentiment
+                    score += sentDict[w]
+            #send score along to reducers
+            print "%s\t%s" % (key, score)
+        #this is just in case something weird happend with the dictionary -
+        #- with so many tweets we don't really care if a couple get missed
+        except KeyError:
+            pass
     except:
         pass
